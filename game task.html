@@ -1,0 +1,273 @@
+<html>
+
+<head>
+    <title> Game page edited</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="external.css">
+
+</head>
+
+<body>
+    <div class="row" style="height: 75px;">
+        <div class="col-lg-4"></div>
+        <div class="col-lg-4"></div>
+        <div class="col-sm-4" id="life" style="text-align: center" >
+            <img src="heart.png" id="im1">
+            <img src="heart.png" id="im2">
+            <img src="heart.png" id="im3">
+        </div>
+    </div>
+    <div class="row" style="height: 150px;">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-8">
+
+            <h3 id="rem" style="text-align: center">Remember the color pattern</h3>
+            <p onload="tick()" style="font-size: 35px; text-align: center"> </p>
+
+
+
+        </div>
+        <div class="col-sm-2"></div>
+    </div>
+    <div class="row" style="height: 150px;">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-8" style="text-align: center">
+            <svg height="100" width="100">
+                <circle id="0" onclick=fillColor0() cx="50" cy="50" r="40" stroke="black" stroke-width="1" />
+            </svg>
+            <svg height="100" width="100">
+                <circle id="1" onclick=fillColor1() cx="50" cy="50" r="40" stroke="black" stroke-width="1" />
+            </svg>
+            <svg height="100" width="100">
+                <circle id="2" onclick=fillColor2() cx="50" cy="50" r="40" stroke="black" stroke-width="1" />
+            </svg>
+            <svg height="100" width="100">
+                <circle id="3" onclick=fillColor3() cx="50" cy="50" r="40" stroke="black" stroke-width="1" />
+            </svg>
+
+
+
+        </div>
+        <div class="col-sm-2"></div>
+    </div>
+    <div class="row" style="height: 150px;">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-8">
+            <table style="border:1px solid black; width:50%; height:50px ">
+                <tr id="ro">
+                    <td id="t0" onclick="getColor0()"> </td>
+                    <td id="t1" onclick="getColor1()"> </td>
+                    <td id="t2" onclick="getColor2()"> </td>
+                    <td id="t3" onclick="getColor3()"> </td>
+                    <td id="t4" onclick="getColor4()"> </td>
+                    <td id="t5" onclick="getColor5()"> </td>
+                    <td id="t6" onclick="getColor6()"> </td>
+                </tr>
+            </table>
+            <br>
+
+
+            <h1 style="text-align: center"> <button onclick="verify()">Check</button></h1>
+
+
+
+        </div>
+        <div class="col-sm-2"></div>
+    </div>
+
+
+
+
+
+
+
+
+    <script>
+
+        var a = ['red', 'blue', 'green', 'black', 'orange', 'yellow', 'gray'];
+        var b = [];
+        var c = [0, 0, 0, 0];
+        // var d = new Array(4);
+
+        for (var k = 0; k < a.length; k++) {
+            document.getElementsByTagName("td")[k].style.backgroundColor = a[k];
+        }
+        function random_color() {
+            var min = 0, max = 6;
+            var rn = 0;
+            var storage = [];
+            for (var count = 0; count < 4;) {
+                rn = Math.floor(Math.random() * (max - min) + min);
+
+                if (storage.length == 0) {
+                    storage.push(rn);
+                    document.getElementById("0").style.fill = a[rn];
+                    b.push(a[rn]);
+                    count++;
+                }
+                else {
+                    if (storage.includes(rn))
+                        continue;
+                    else {
+
+                        storage.push(rn);
+                        document.getElementById(count.toString()).style.fill = a[rn];
+                        b.push(a[rn]);
+                        count++;
+                    }
+                }
+
+            }
+        }
+
+
+
+
+        var COUNTER_START = 6
+
+        function tick() {
+            if (document.getElementById('counter').firstChild.data > 0) {
+                document.getElementById('counter').firstChild.data = document.getElementById('counter').firstChild.data - 1
+                setTimeout('tick()', 1000)
+            }
+            else {
+                document.getElementById('rem').innerHTML = "";
+
+                for (var j = 0; j < 4; j++) {
+                    document.getElementById(j.toString()).style.fill = "white";
+                }
+
+
+                document.getElementById('counter').firstChild.data = 'start'
+            }
+        }
+        onload = random_color()
+        if (document.getElementById) onload = function () {
+            var t = document.createTextNode(COUNTER_START)
+            var p = document.createElement('P')
+            p.appendChild(t)
+            p.setAttribute('id', 'counter')
+
+            var body = document.getElementsByTagName('p')[0]
+            var firstChild = body.getElementsByTagName('*')[0]
+
+            body.insertBefore(p, firstChild)
+            tick()
+        }
+        let colorToFill
+
+        function getColor0() {
+
+
+            colorToFill = (document.getElementById("t0").style.backgroundColor)
+
+        }
+
+        function getColor1() {
+
+
+            colorToFill = (document.getElementById("t1").style.backgroundColor)
+        }
+
+        function getColor2() {
+
+
+            colorToFill = (document.getElementById("t2").style.backgroundColor)
+        }
+
+        function getColor3() {
+
+
+            colorToFill = (document.getElementById("t3").style.backgroundColor)
+        }
+
+        function getColor4() {
+
+
+            colorToFill = (document.getElementById("t4").style.backgroundColor)
+        }
+
+        function getColor5() {
+
+
+            colorToFill = (document.getElementById("t5").style.backgroundColor)
+        }
+
+        function getColor6() {
+
+            colorToFill = (document.getElementById("t6").style.backgroundColor)
+        }
+
+
+
+        function fillColor0() {
+
+            document.getElementById("0").style.fill = colorToFill
+            c[0] = colorToFill;
+        }
+
+
+        function fillColor1() {
+
+            document.getElementById("1").style.fill = colorToFill
+            c[1] = colorToFill;
+        }
+
+        function fillColor2() {
+
+
+            document.getElementById("2").style.fill = colorToFill
+            c[2] = colorToFill;
+        }
+
+        function fillColor3() {
+
+            document.getElementById("3").style.fill = colorToFill
+            c[3] = colorToFill;
+        }
+
+
+
+
+        var count = 3;
+
+        function verify() {
+            var flag = true;
+            for (var i = 0; i < b.length; i++) {
+                if (b[i] != c[i]) {
+                    flag = false;
+                    break;
+                }
+            }
+            if (flag) {
+                alert("You Won the Game");
+                alert("Yes I want to Continue");
+                location.reload();
+            }
+            else {
+                console.log(flag);
+                alert("MisMatch");
+                alert("You lost one of your life")
+                document.getElementById("im" + count).style.visibility = "hidden";
+                count--;
+                document.getElementById('rem').innerHTML = "";
+
+                for (var j = 0; j < 4; j++) {
+                    document.getElementById(j.toString()).style.fill = "white";
+                }
+                if (count == 0) {
+                    alert("Game Over Restarting the game");
+                    location.reload();
+                }
+            }
+        }
+
+
+    </script>
+
+
+
+</body>
+
+</html>
